@@ -41,3 +41,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Ignore everything in unity except scripts folder
+/unity/OpSpot/*
+!/unity/OpSpot/Assets/
+/unity/OpSpot/Assets/*
+!/unity/OpSpot/Assets/Scripts/

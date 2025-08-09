@@ -1,20 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: UnityDemoScreen(),
+    ),
+  );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class UnityDemoScreen extends StatefulWidget {
+  const UnityDemoScreen({super.key});
+
+  @override
+  State<UnityDemoScreen> createState() => _UnityDemoScreenState();
+}
+
+class _UnityDemoScreenState extends State<UnityDemoScreen> {
+  static final GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>();
+  UnityWidgetController? _unityWidgetController;
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    return Scaffold(
+      key: _scaffoldKey,
+      body: SafeArea(
+        bottom: false,
+        child: PopScope(
+          canPop: false,
+          child: Container(
+            color: Colors.yellow,
+            child: UnityWidget(
+              onUnityCreated: onUnityCreated,
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  // Callback that connects the created controller to the unity controller
+  void onUnityCreated(controller) {
+    _unityWidgetController = controller;
   }
 }
